@@ -102,8 +102,7 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          <BoxContent titulo="Comunidades" lista={comunidades} tipo="comunidades" />
-          {/* <ProfileRelationsBoxWrapper>
+          <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades ({comunidades.length})
             </h2>
@@ -119,10 +118,9 @@ export default function Home() {
                 )
               })}
             </ul>
-          </ProfileRelationsBoxWrapper> */}
+          </ProfileRelationsBoxWrapper>
 
-          <BoxContent titulo="Pessoas da comunidade" lista={pessoasFavoritas} />
-          {/* <ProfileRelationsBoxWrapper>
+          <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da comunidade ({pessoasFavoritas.length})
             </h2>
@@ -139,7 +137,7 @@ export default function Home() {
                 )
               })}
             </ul>
-          </ProfileRelationsBoxWrapper> */}
+          </ProfileRelationsBoxWrapper>
 
         </div>
       </MainGrid>
