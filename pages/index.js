@@ -56,6 +56,7 @@ export default function Home() {
     title: 'Eu odeio acordar cedo',
     image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
   }]);
+
   const pessoasFavoritas = [
     'juunegreiros',
     'omariosouto',
@@ -109,8 +110,8 @@ export default function Home() {
 
               const comunidade = {
                 id: new Date().toISOString(),
-                titulo: dadosDoForm.get('title'),
-                imagem: dadosDoForm.get('image')
+                title: dadosDoForm.get('title'),
+                image: dadosDoForm.get('image')
               }
 
               setComunidades([...comunidades, comunidade]);
