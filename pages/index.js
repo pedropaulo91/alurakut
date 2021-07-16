@@ -3,7 +3,6 @@ import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
-import BoxContent from '../src/components/BoxContent'
 
 
 function ProfieSidebar(props) {
@@ -26,6 +25,30 @@ function ProfieSidebar(props) {
   )
 }
 
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {props.title} ({props.items.length})
+      </h2>
+      <ul>
+        {/* {seguidores.map((itemAtual) => {
+          return (
+            <li key={itemAtual.id}>
+              <a href={`https://github.com/${itemAtual.title}.png`}>
+                <img src={itemAtual.image} />
+                <span>{itemAtual.title}</span>
+              </a>
+            </li>
+          )
+        })} */}
+      </ul>
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
+
+
 export default function Home() {
   const githubUser = 'pedropaulo91';
   const [comunidades, setComunidades] = React.useState([{
@@ -41,6 +64,21 @@ export default function Home() {
     'marcobrunodev',
     'felipefialho'
   ];
+
+  const [seguidores, setSeguidores] = React.useState([]);
+  // 0 - Pegar o array de dados do GitHub
+  React.useEffect(() => {
+    fetch("https://api.github.com/users/pedropaulo91/followers")
+      .then((respostaDoServidor) => {
+        return respostaDoServidor.json();
+      })
+      .then((respostaCompleta) => {
+        setSeguidores(respostaCompleta);
+      })
+  }, [])
+
+  // 1 - Criar um box que vai ter um map, baseado nos items do array
+  // que pegamos do GitHub
 
   return (
     <>
@@ -61,6 +99,7 @@ export default function Home() {
 
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
+            {/* FORMULÁRIO */}
             <form onSubmit={(e) => {
               e.preventDefault();
               const dadosDoForm = new FormData(e.target);
@@ -102,6 +141,9 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+
+          <ProfileRelationsBox title="Seguidores" items={seguidores} />
+
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades ({comunidades.length})
