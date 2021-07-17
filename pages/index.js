@@ -133,12 +133,26 @@ export default function Home() {
               console.log('Campo', dadosDoForm.get('image'));
 
               const comunidade = {
-                id: new Date().toISOString(),
                 title: dadosDoForm.get('title'),
-                imageUrl: dadosDoForm.get('image')
+                imageUrl: dadosDoForm.get('image'),
+                creatorSlug: 'pedropaulo'
               }
 
-              setComunidades([...comunidades, comunidade]);
+              fetch('/api/comunidades', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(comunidade)
+              })
+                .then(async (response) => {
+                  const dados = response.json();
+                  console.log(dados.registroCriado);
+                  const comunidade = dados.registroCriado;
+                  setComunidades([...comunidades, comunidade]);
+                })
+
+
 
             }} >
               <div>
