@@ -51,11 +51,7 @@ function ProfileRelationsBox(props) {
 
 export default function Home() {
   const githubUser = 'pedropaulo91';
-  const [comunidades, setComunidades] = React.useState([{
-    id: 'b840868a-bb83-4df3-ab23-ecb1c4b6b7f7',
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-  }]);
+  const [comunidades, setComunidades] = React.useState([]);
 
   const pessoasFavoritas = [
     'juunegreiros',
@@ -67,6 +63,7 @@ export default function Home() {
   ];
 
   const [seguidores, setSeguidores] = React.useState([]);
+
   // 0 - Pegar o array de dados do GitHub
   React.useEffect(() => {
     fetch("https://api.github.com/users/pedropaulo91/followers")
@@ -76,7 +73,34 @@ export default function Home() {
       .then((respostaCompleta) => {
         setSeguidores(respostaCompleta);
       })
+
+    // API GraphQl
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '0a6de819bdf440bf67ee8430eb4365',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        "query": ` query {
+      allCommunities {
+        title
+        id
+        imageUrl
+        creatorSlug
+      }
+    }` })
+    })
+      .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
+      .then((respostaCompleta) => {
+        const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+        console.log(comunidadesVindasDoDato);
+        setComunidades(comunidadesVindasDoDato);
+      });
   }, [])
+
+
 
   // 1 - Criar um box que vai ter um map, baseado nos items do array
   // que pegamos do GitHub
@@ -111,7 +135,7 @@ export default function Home() {
               const comunidade = {
                 id: new Date().toISOString(),
                 title: dadosDoForm.get('title'),
-                image: dadosDoForm.get('image')
+                imageUrl: dadosDoForm.get('image')
               }
 
               setComunidades([...comunidades, comunidade]);
@@ -153,8 +177,8 @@ export default function Home() {
               {comunidades.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
-                    <a href={`/users/${itemAtual.title}`}>
-                      <img src={itemAtual.image} />
+                    <a href={`/communities/${itemAtual.id}`}>
+                      <img src={itemAtual.imageUrl} />
                       <span>{itemAtual.title}</span>
                     </a>
                   </li>
