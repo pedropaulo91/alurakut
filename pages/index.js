@@ -29,6 +29,7 @@ export default function Home(props) {
         return respostaDoServidor.json();
       })
       .then((respostaCompleta) => {
+        console.log(respostaCompleta);
         setSeguidores(respostaCompleta);
       })
 

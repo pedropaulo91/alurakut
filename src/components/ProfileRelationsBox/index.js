@@ -9,16 +9,16 @@ export default function ProfileRelationsBox(props) {
           {props.title} ({props.items.length})
         </h2>
         <ul>
-          {/* {seguidores.map((itemAtual) => {
-              return (
-                <li key={itemAtual.id}>
-                  <a href={`https://github.com/${itemAtual.title}.png`}>
-                    <img src={itemAtual.image} />
-                    <span>{itemAtual.title}</span>
-                  </a>
-                </li>
-              )
-            })} */}
+          {props.items.map((itemAtual) => {
+            return (
+              <li key={itemAtual.id}>
+                <a target="_blank" href={`https://github.com/${itemAtual.login}`}>
+                  <img src={`https://github.com/${itemAtual.login}.png`} />
+                  <span>{itemAtual.title}</span>
+                </a>
+              </li>
+            )
+          })}
         </ul>
       </ProfileRelationsBoxWrapper>
     )
