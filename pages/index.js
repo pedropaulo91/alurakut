@@ -3,53 +3,10 @@ import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
-import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
+import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
-
-
-function ProfieSidebar(props) {
-  return (
-    <Box as="aside">
-      <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
-      <hr />
-
-      <p>
-        <a className="boxLink" href={`https://github.com/${props.githubUser}`} style={{ borderRadius: '8px' }}>
-          @{props.githubUser}
-        </a>
-      </p>
-
-      <hr />
-
-      <AlurakutProfileSidebarMenuDefault />
-
-    </Box>
-  )
-}
-
-function ProfileRelationsBox(props) {
-  return (
-    <ProfileRelationsBoxWrapper>
-      <h2 className="smallTitle">
-        {props.title} ({props.items.length})
-      </h2>
-      <ul>
-        {/* {seguidores.map((itemAtual) => {
-          return (
-            <li key={itemAtual.id}>
-              <a href={`https://github.com/${itemAtual.title}.png`}>
-                <img src={itemAtual.image} />
-                <span>{itemAtual.title}</span>
-              </a>
-            </li>
-          )
-        })} */}
-      </ul>
-    </ProfileRelationsBoxWrapper>
-  )
-}
-
-
+import ProfileSidebar from '../src/components/ProfileSidebar';
+import ProfileRelationsBox from '../src/components/ProfileRelationsBox';
 
 export default function Home(props) {
   const githubUser = props.githubUser;
@@ -112,7 +69,7 @@ export default function Home(props) {
       <AlurakutMenu />
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
-          <ProfieSidebar githubUser={githubUser} />
+          <ProfileSidebar githubUser={githubUser} />
         </div>
 
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
