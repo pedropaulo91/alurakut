@@ -29,7 +29,6 @@ export default function Home(props) {
         return respostaDoServidor.json();
       })
       .then((respostaCompleta) => {
-        console.log(respostaCompleta);
         setSeguidores(respostaCompleta);
       })
 
@@ -140,9 +139,9 @@ export default function Home(props) {
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 
-          <ProfileRelationsBox title="Seguidores" items={seguidores} type="seguidores" />
           <ProfileRelationsBox title="Comunidades" items={comunidades} type="comunidades" />
           <ProfileRelationsBox title="Pessoas da comunidade" items={pessoasFavoritas} type="pessoasDaComunidade" />
+          <ProfileRelationsBox title="Seguidores" items={seguidores} type="seguidores" />
 
         </div>
       </MainGrid>
