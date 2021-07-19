@@ -83,36 +83,7 @@ export default function Home(props) {
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
             {/* FORMULÁRIO */}
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const dadosDoForm = new FormData(e.target);
-
-              console.log('Campo', dadosDoForm.get('title'));
-              console.log('Campo', dadosDoForm.get('image'));
-
-              const comunidade = {
-                title: dadosDoForm.get('title'),
-                imageUrl: dadosDoForm.get('image'),
-                creatorSlug: 'pedropaulo'
-              }
-
-              fetch('/api/comunidades', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(comunidade)
-              })
-                .then(async (response) => {
-                  const dados = response.json();
-                  console.log(dados.registroCriado);
-                  const comunidade = dados.registroCriado;
-                  setComunidades([...comunidades, comunidade]);
-                })
-
-
-
-            }} >
+            <form onSubmit={criaComunidade} >
               <div>
                 <input
                   placeholder="Qual vai ser o nome da sua comunidade?"
@@ -148,6 +119,35 @@ export default function Home(props) {
     </>
   )
 }
+
+function criaComunidade(e) {
+  e.preventDefault();
+  const dadosDoForm = new FormData(e.target);
+
+  console.log('Campo', dadosDoForm.get('title'));
+  console.log('Campo', dadosDoForm.get('image'));
+
+  const comunidade = {
+    title: dadosDoForm.get('title'),
+    imageUrl: dadosDoForm.get('image'),
+    creatorSlug: 'pedropaulo'
+  }
+
+  fetch('/api/comunidades', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comunidade)
+  })
+    .then(async (response) => {
+      const dados = response.json();
+      console.log(dados.registroCriado);
+      const comunidade = dados.registroCriado;
+      setComunidades([...comunidades, comunidade]);
+    })
+}
+
 
 export async function getServerSideProps(context) {
   const cookies = nookies.get(context);
